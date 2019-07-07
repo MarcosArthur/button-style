@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>Create Style Button</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+
+  <header class="cabecalho">
+    <a href="#" class="logo">Button Style</a>
+    <div class="container__buttons">
+      <label class="btn" for="color">Background</label>
+      <button class="btn default">Default</button>
+    </div>
+    <input type="color" id="color" value="#ff0000" display="none">
+  </header>
+
+  <main class="container">
+
+    <div class="container__options">
+      <form class="" action="index.html" method="post" class="">
+      <div class="container__form">
+        <label for="text">Text</label>
+        <input type="text" data-text id="text">
+        <label for="width">Width</label>
+        <input type="range" min="0" max="1000" step="1" value="0" data-width id="width">
+        <label for="Height">Height</label>
+        <input type="range" min="0" max="1000" step="1" value="0" data-height id="Height">
+        <label for="padding">Padding</label>
+        <input type="number" name="" value="" id="padding" data-padding>
+        <label for="radius">Radius</label>
+        <input type="number" name="" value="" id="radius" data-radius>
+        <label for="size">Font Size</label>
+        <input type="number" name="" value="" id="size" data-size>
+        <label for="">Color</label>
+        <input type="color" name="" value="#ff0000" id="" data-textColor>
+        <label for="">Background</label>
+        <input type="color" name="" value="" value="#ff0000" id="" data-bg>
+        <label for="">Border</label>
+        <input type="text" name="" value="" id="" data-border placeholder="Ex: solid 2px red">
+        </div>
+
+      </div>
+      </form>
+    </div>
+
+    <div class="container__button-style">
+      <button data-button>Button</button>
+    </div>
+
+    <div class="">
+      <code id="code"></code>
+    </div>
+  </main>
+</body>
+
+<script>
+
+class ButtonCreate {
+
+  constructor() {
+    this.btnDefault = document.querySelector('.default');
+    this.inputText = document.querySelector('[data-text]');
+    this.buttonWidth = document.querySelector('[data-width]');
+    this.buttonHeight = document.querySelector('[data-height]');
+    this.inputPadding =  document.querySelector('[data-padding]');
+    this.inputTextColor = document.querySelector('[data-textColor]');
+    this.inputBgColor = document.querySelector('[data-bg]');
+    this.buttonRadius = document.querySelector('[data-radius]');
+    this.border = document.querySelector('[data-border]');
+    this.fontSize = document.querySelector('[data-size]');
+    this.form = document.querySelector('form');
+    this.code = document.querySelector('#code');
+    this.buttonManipulate = document.querySelector('[data-button]');
+    this.initEvents();
+  }
+
+  initEvents() {
+    this.eventClickButtonDefault();
+    this.eventChangeForm();
+  }
+
+  eventClickButtonDefault() {
+    this.btnDefault.addEventListener('click', this.setBackgroundDefault.bind(this))
+  }
+
+  setBackgroundDefault() {
+    document.body.style.backgroundColor = '#282a2d';
+  }
+
+  eventChangeForm() {
+    this.form.addEventListener('change', () => {
+      this.manipulateButton()
+      this.setCode();
+    })
+  }
+
+  manipulateButton() {
+    let hover = `
+
+    `;
+    this.buttonManipulate.innerText = this.inputText.value;
+    this.buttonManipulate.style = `
+      width:${this.isEmpty(this.buttonWidth.value)}px;
+      height: ${this.isEmpty(this.buttonHeight.value)}px;
+      padding: ${this.isEmpty(this.inputPadding.value)}px;
+      color: ${this.inputTextColor.value};
+      border: none;
+      background: ${this.inputBgColor.value};
+      border-radius: ${this.isEmpty(this.buttonRadius.value)}%;
+      font-size: ${this.isEmpty(this.fontSize.value)}px;
+      cursor: pointer;
+      border: ${this.border.value}
+    `;
+  }
+
+
+  isEmpty(value) {
+    if (value > 0) return value;
+  }
+
+  setCode() {
+    let value = this.buttonManipulate.style.cssText.split(';');
+    let css = `
+    .button {
+        <br>
+        ${value.map(e => e)}
+    }
+    `
+    ;
+
+    css = css.split(',').join(';<br>');
+
+    this.code.innerHTML = css;
+
+  }
+
+
+}
+
+  let manipulation = new ButtonCreate();
+
+  // let btnDefault = document.querySelector('.default');
+  // let color = document.querySelector('#color');
+  // color.addEventListener('change', e => {
+  //   document.body.style.backgroundColor = e.target.value;
+  // })
+  //
+  // btnDefault.addEventListener('click', () => {
+  //   document.body.style.backgroundColor = '#282a2d';
+  // });
+
+</script>
+
+</html>
